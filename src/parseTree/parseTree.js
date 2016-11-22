@@ -7,12 +7,12 @@ var ParseTree = function(node,children){
 	this.children = argKeys.map(function(key){ return args[key]; });
 };
 
-ParseTree.prototype.toStr = function(){
+ParseTree.prototype.toStr = function(openBrace,cloceBrace,space){
 	var node = this.node;
     var result = this.children.slice(1).reduce(function(prevResult,child){
-        return prevResult + " "+ node.toStr()+ " "+child.toStr();
-    },"( "+this.children[0].toStr());
-    return result+" )";
+        return prevResult + space + node.toStr("(",")",space)+ space+child.toStr("(",")",space);
+    },openBrace+this.children[0].toStr("(",")",space));
+    return result+cloceBrace;
 };
 
 ParseTree.prototype.represent = function(){
@@ -34,6 +34,14 @@ ParseTree.prototype.replaceIdentifiers = function(identifiers){
 	this.children.forEach(function(child){
 			child.replaceIdentifiers(identifiers);
 	})
+}
+
+ParseTree.prototype.toJS = function(identifiers){
+	var code = this.toStr("","","");
+	if(this.node.value=="="){
+		return "var "+code+ ";";
+	}
+	return "console.log("+ code +");";
 }
 
 module.exports = ParseTree;

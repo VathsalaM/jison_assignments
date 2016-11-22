@@ -46,7 +46,7 @@ describe("toString",function(){
         var plus = new OperatorNode("+");
         var arg1 = new NumberNode(1);
         var arg2 = new NumberNode(2);
-        var actual = new ParseTree(plus,arg1,arg2).toStr();
+        var actual = new ParseTree(plus,arg1,arg2).toStr("( "," )"," ");
         var expected = "( 1 + 2 )";
         assert.equal(actual,expected);
     })
@@ -60,18 +60,26 @@ describe("replaceIdentifiers",function(){
         var actual = new ParseTree(plus,arg1,arg2);
         actual.replaceIdentifiers({"x":2});
         var expected = "( 1 + 2 )";
-        assert.equal(actual.toStr(),expected);
+        assert.equal(actual.toStr("( "," )"," "),expected);
     })
 });
 
 describe("toJS",function(){
-    it("should return equivalent js code",function(){
+    it("should return console.log if it is not assignment",function(){
         var plus = new OperatorNode("+");
         var arg1 = new NumberNode(1);
         var arg2 = new IdentifierNode("x");
         var actual = new ParseTree(plus,arg1,arg2);
-        actual.replaceIdentifiers({"x":2});
-        var expected = "console.log( 1 + 2 );";
+        var expected = "console.log(1+x);";
+        assert.equal(actual.toJS(),expected);
+    });
+    it("should return var if it is assignment",function(){
+        var plus = new OperatorNode("+");
+        var arg1 = new NumberNode(1);
+        var arg2 = new NumberNode(2);
+        var parseTree = new ParseTree(plus,arg1,arg2);
+        var actual = new ParseTree(new OperatorNode("="),new IdentifierNode("x"),parseTree);
+        var expected = "var x=(1+2);";
         assert.equal(actual.toJS(),expected);
     })
 })

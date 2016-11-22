@@ -22,4 +22,8 @@ NumberNode.prototype.makeParent = function(){
 	this.isParent = true;
 };
 
+NumberNode.prototype.toJS = function(){
+	return this.toStr();
+};
+
 module.exports = NumberNode;

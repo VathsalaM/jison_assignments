@@ -1,3 +1,5 @@
+var fs = require('fs');
+
 var Evaluator = function(){
 	this.parseTrees = [];
 };
@@ -16,6 +18,15 @@ Evaluator.prototype.evaluate = function(){
 	});
 	return result.filter(function(node){return (node.type!='identifier')||(node.isParent)})
 };
+
+Evaluator.prototype.toJS = function(){
+	var jsCode = this.parseTrees.reduce(function(result,parseTree){
+		return result+"\n"+parseTree.toJS();
+	},"");
+	fs.writeFileSync("expression.js",jsCode);
+};
+
+
 
 Evaluator.prototype.addTree = function(parseTree){
 	this.parseTrees.push(parseTree);

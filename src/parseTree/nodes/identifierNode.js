@@ -22,4 +22,8 @@ IdentifierNode.prototype.makeParent = function(){
 	this.isParent = true;
 };
 
+IdentifierNode.prototype.toJS = function(){
+	return this.toStr();
+};
+
 module.exports = IdentifierNode;

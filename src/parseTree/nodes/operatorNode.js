@@ -19,5 +19,9 @@ OperatorNode.prototype.makeParent = function(){
 	this.isParent = true;
 }
 
+OperatorNode.prototype.toJS = function(){
+	return this.toStr();
+}
+
 module.exports = OperatorNode;
 

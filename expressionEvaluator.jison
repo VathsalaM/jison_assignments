@@ -36,8 +36,7 @@
 
 EX 
 	:	expression_list EOF { 
-								$$ = evaluator.evaluate();
-								$$.forEach(function(result){ console.log(result.toStr()); });
+								evaluator.toJS();
 							}
 	;
 

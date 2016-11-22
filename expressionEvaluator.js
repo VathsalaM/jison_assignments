@@ -85,8 +85,7 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
  
-								this.$ = evaluator.evaluate();
-								this.$.forEach(function(result){ console.log(result.toStr()); });
+								evaluator.toJS();
 							
 break;
 case 4: case 5:
