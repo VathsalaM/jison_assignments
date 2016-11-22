@@ -52,7 +52,7 @@ expression
 	;
 
 assignment_expression 
-	:	IDENTIFIER ASSIGNMENT_OPERATOR NUMBER {$$ = new ParseTree(new OperatorNode($2),new IdentifierNode($1),new NumberNode($3));}
+	:	IDENTIFIER ASSIGNMENT_OPERATOR eval_expression {$$ = new ParseTree(new OperatorNode($2),new IdentifierNode($1),$3);}
 	;
 
 value 

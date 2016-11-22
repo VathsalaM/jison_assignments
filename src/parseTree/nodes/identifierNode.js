@@ -2,6 +2,7 @@ var IdentifierNode = function(name){
 	this.name = name;
 	this.value;
     this.type = "identifier";
+    this.isParent;
     this.evaluate = function(){ return this;}
 };
 
@@ -15,5 +16,10 @@ IdentifierNode.prototype.replaceIdentifiers = function(identifiers){
 
 IdentifierNode.prototype.replaceValue = function(newValue){
 	this.value = newValue
-}
+};
+
+IdentifierNode.prototype.makeParent = function(){
+	this.isParent = true;
+};
+
 module.exports = IdentifierNode;

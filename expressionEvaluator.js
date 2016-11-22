@@ -72,12 +72,12 @@
   }
 */
 var expressionEvaluator = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,9],$V2=[1,7],$V3=[5,10,12,19],$V4=[1,13],$V5=[1,15],$V6=[1,16],$V7=[1,17],$V8=[1,18],$V9=[1,19],$Va=[2,7],$Vb=[1,22],$Vc=[14,15,16,17,18,20,21],$Vd=[14,15,20,21],$Ve=[14,15,16,17,20,21];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,9],$V2=[1,7],$V3=[5,10,13,19],$V4=[1,13],$V5=[1,15],$V6=[1,16],$V7=[1,17],$V8=[1,18],$V9=[1,19],$Va=[2,7],$Vb=[1,22],$Vc=[14,15,16,17,18,20,21],$Vd=[14,15,20,21],$Ve=[14,15,16,17,20,21];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"eval_expression":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"NUMBER":12,"value":13,"+":14,"-":15,"*":16,"/":17,"^":18,"(":19,")":20,";":21,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",10:"IDENTIFIER",11:"ASSIGNMENT_OPERATOR",12:"NUMBER",14:"+",15:"-",16:"*",17:"/",18:"^",19:"(",20:")",21:";"},
-productions_: [0,[3,2],[4,1],[4,2],[6,2],[6,2],[7,3],[13,1],[13,1],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,1],[8,1]],
+symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"eval_expression":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"value":12,"NUMBER":13,"+":14,"-":15,"*":16,"/":17,"^":18,"(":19,")":20,";":21,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",10:"IDENTIFIER",11:"ASSIGNMENT_OPERATOR",13:"NUMBER",14:"+",15:"-",16:"*",17:"/",18:"^",19:"(",20:")",21:";"},
+productions_: [0,[3,2],[4,1],[4,2],[6,2],[6,2],[7,3],[12,1],[12,1],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,1],[8,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -93,7 +93,7 @@ case 4: case 5:
 this.$ = evaluator.addTree(this.$);
 break;
 case 6:
-this.$ = new ParseTree(new OperatorNode($$[$0-1]),new IdentifierNode($$[$0-2]),new NumberNode($$[$0]));
+this.$ = new ParseTree(new OperatorNode($$[$0-1]),new IdentifierNode($$[$0-2]),$$[$0]);
 break;
 case 7:
 this.$=new IdentifierNode(yytext);
@@ -109,8 +109,8 @@ this.$ = $$[$0-1];
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,9:5,10:$V0,12:$V1,13:8,19:$V2},{1:[3]},{5:[1,10],6:11,7:4,9:5,10:$V0,12:$V1,13:8,19:$V2},o($V3,[2,2]),{8:12,21:$V4},{8:14,14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,21:$V4},o([14,15,16,17,18,21],$Va,{11:[1,20]}),{9:21,10:$Vb,12:$V1,13:8,19:$V2},o($Vc,[2,15]),o($Vc,[2,8]),{1:[2,1]},o($V3,[2,3]),o($V3,[2,4]),o($V3,[2,16]),o($V3,[2,5]),{9:23,10:$Vb,12:$V1,13:8,19:$V2},{9:24,10:$Vb,12:$V1,13:8,19:$V2},{9:25,10:$Vb,12:$V1,13:8,19:$V2},{9:26,10:$Vb,12:$V1,13:8,19:$V2},{9:27,10:$Vb,12:$V1,13:8,19:$V2},{12:[1,28]},{14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,20:[1,29]},o($Vc,$Va),o($Vd,[2,9],{16:$V7,17:$V8,18:$V9}),o($Vd,[2,10],{16:$V7,17:$V8,18:$V9}),o($Ve,[2,11],{18:$V9}),o($Ve,[2,12],{18:$V9}),o($Vc,[2,13]),{21:[2,6]},o($Vc,[2,14])],
-defaultActions: {10:[2,1],28:[2,6]},
+table: [{3:1,4:2,6:3,7:4,9:5,10:$V0,12:8,13:$V1,19:$V2},{1:[3]},{5:[1,10],6:11,7:4,9:5,10:$V0,12:8,13:$V1,19:$V2},o($V3,[2,2]),{8:12,21:$V4},{8:14,14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,21:$V4},o([14,15,16,17,18,21],$Va,{11:[1,20]}),{9:21,10:$Vb,12:8,13:$V1,19:$V2},o($Vc,[2,15]),o($Vc,[2,8]),{1:[2,1]},o($V3,[2,3]),o($V3,[2,4]),o($V3,[2,16]),o($V3,[2,5]),{9:23,10:$Vb,12:8,13:$V1,19:$V2},{9:24,10:$Vb,12:8,13:$V1,19:$V2},{9:25,10:$Vb,12:8,13:$V1,19:$V2},{9:26,10:$Vb,12:8,13:$V1,19:$V2},{9:27,10:$Vb,12:8,13:$V1,19:$V2},{9:28,10:$Vb,12:8,13:$V1,19:$V2},{14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,20:[1,29]},o($Vc,$Va),o($Vd,[2,9],{16:$V7,17:$V8,18:$V9}),o($Vd,[2,10],{16:$V7,17:$V8,18:$V9}),o($Ve,[2,11],{18:$V9}),o($Ve,[2,12],{18:$V9}),o($Vc,[2,13]),{14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,21:[2,6]},o($Vc,[2,14])],
+defaultActions: {10:[2,1]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -601,7 +601,7 @@ case 0:	if(yy_.yylloc.first_line==1 && yy_.yylloc.first_column==0){
 break;
 case 1:/* skip whitespace */
 break;
-case 2:return 12
+case 2:return 13
 break;
 case 3:return 10
 break;
