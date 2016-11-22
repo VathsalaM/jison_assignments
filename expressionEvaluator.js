@@ -72,12 +72,12 @@
   }
 */
 var expressionEvaluator = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,9],$V2=[1,7],$V3=[5,10,13,19],$V4=[1,13],$V5=[1,15],$V6=[1,16],$V7=[1,17],$V8=[1,18],$V9=[1,19],$Va=[2,7],$Vb=[1,22],$Vc=[14,15,16,17,18,20,21],$Vd=[14,15,20,21],$Ve=[14,15,16,17,20,21];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,9],$V2=[1,7],$V3=[5,10,13,20],$V4=[1,13],$V5=[1,16],$V6=[1,17],$V7=[1,18],$V8=[1,19],$V9=[1,20],$Va=[2,7],$Vb=[1,23],$Vc=[15,16,17,18,19,21,22],$Vd=[10,13,20];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"eval_expression":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"value":12,"NUMBER":13,"+":14,"-":15,"*":16,"/":17,"^":18,"(":19,")":20,";":21,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",10:"IDENTIFIER",11:"ASSIGNMENT_OPERATOR",13:"NUMBER",14:"+",15:"-",16:"*",17:"/",18:"^",19:"(",20:")",21:";"},
-productions_: [0,[3,2],[4,1],[4,2],[6,2],[6,2],[7,3],[12,1],[12,1],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,1],[8,1]],
+symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"eval_expression":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"value":12,"NUMBER":13,"operator":14,"+":15,"-":16,"*":17,"/":18,"^":19,"(":20,")":21,";":22,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",10:"IDENTIFIER",11:"ASSIGNMENT_OPERATOR",13:"NUMBER",15:"+",16:"-",17:"*",18:"/",19:"^",20:"(",21:")",22:";"},
+productions_: [0,[3,2],[4,1],[4,2],[6,2],[6,2],[7,3],[12,1],[12,1],[14,1],[14,1],[14,1],[14,1],[14,1],[9,3],[9,3],[9,1],[8,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -100,15 +100,15 @@ break;
 case 8:
 this.$=new NumberNode(Number(yytext))
 break;
-case 9: case 10: case 11: case 12: case 13:
+case 14:
 this.$ = new ParseTree(new OperatorNode($$[$0-1]),$$[$0-2],$$[$0]);
 break;
-case 14:
+case 15:
 this.$ = $$[$0-1];
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,9:5,10:$V0,12:8,13:$V1,19:$V2},{1:[3]},{5:[1,10],6:11,7:4,9:5,10:$V0,12:8,13:$V1,19:$V2},o($V3,[2,2]),{8:12,21:$V4},{8:14,14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,21:$V4},o([14,15,16,17,18,21],$Va,{11:[1,20]}),{9:21,10:$Vb,12:8,13:$V1,19:$V2},o($Vc,[2,15]),o($Vc,[2,8]),{1:[2,1]},o($V3,[2,3]),o($V3,[2,4]),o($V3,[2,16]),o($V3,[2,5]),{9:23,10:$Vb,12:8,13:$V1,19:$V2},{9:24,10:$Vb,12:8,13:$V1,19:$V2},{9:25,10:$Vb,12:8,13:$V1,19:$V2},{9:26,10:$Vb,12:8,13:$V1,19:$V2},{9:27,10:$Vb,12:8,13:$V1,19:$V2},{9:28,10:$Vb,12:8,13:$V1,19:$V2},{14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,20:[1,29]},o($Vc,$Va),o($Vd,[2,9],{16:$V7,17:$V8,18:$V9}),o($Vd,[2,10],{16:$V7,17:$V8,18:$V9}),o($Ve,[2,11],{18:$V9}),o($Ve,[2,12],{18:$V9}),o($Vc,[2,13]),{14:$V5,15:$V6,16:$V7,17:$V8,18:$V9,21:[2,6]},o($Vc,[2,14])],
+table: [{3:1,4:2,6:3,7:4,9:5,10:$V0,12:8,13:$V1,20:$V2},{1:[3]},{5:[1,10],6:11,7:4,9:5,10:$V0,12:8,13:$V1,20:$V2},o($V3,[2,2]),{8:12,22:$V4},{8:14,14:15,15:$V5,16:$V6,17:$V7,18:$V8,19:$V9,22:$V4},o([15,16,17,18,19,22],$Va,{11:[1,21]}),{9:22,10:$Vb,12:8,13:$V1,20:$V2},o($Vc,[2,16]),o($Vc,[2,8]),{1:[2,1]},o($V3,[2,3]),o($V3,[2,4]),o($V3,[2,17]),o($V3,[2,5]),{9:24,10:$Vb,12:8,13:$V1,20:$V2},o($Vd,[2,9]),o($Vd,[2,10]),o($Vd,[2,11]),o($Vd,[2,12]),o($Vd,[2,13]),{9:25,10:$Vb,12:8,13:$V1,20:$V2},{14:15,15:$V5,16:$V6,17:$V7,18:$V8,19:$V9,21:[1,26]},o($Vc,$Va),o([21,22],[2,14],{14:15,15:$V5,16:$V6,17:$V7,18:$V8,19:$V9}),{14:15,15:$V5,16:$V6,17:$V7,18:$V8,19:$V9,22:[2,6]},o($Vc,[2,15])],
 defaultActions: {10:[2,1]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
@@ -601,23 +601,23 @@ case 1:return 13
 break;
 case 2:return 10
 break;
-case 3:return 15;
+case 3:return 16;
 break;
-case 4:return 17;
+case 4:return 18;
 break;
-case 5:return 14;
+case 5:return 15;
 break;
-case 6:return 16;
+case 6:return 17;
 break;
-case 7:return 18;
+case 7:return 19;
 break;
-case 8:return 19;
+case 8:return 20;
 break;
-case 9:return 20;
+case 9:return 21;
 break;
 case 10:return 11;
 break;
-case 11:return 21;
+case 11:return 22;
 break;
 case 12:return 5;
 break;

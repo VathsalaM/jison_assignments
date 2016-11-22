@@ -36,7 +36,7 @@ ParseTree.prototype.replaceIdentifiers = function(identifiers){
 	})
 }
 
-ParseTree.prototype.toJS = function(identifiers){
+ParseTree.prototype.toJS = function(){
 	var code = this.toStr("","","");
 	if(this.node.value=="="){
 		return "var "+code+ ";";
