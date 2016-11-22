@@ -1,16 +1,16 @@
 /* lexical grammar */
 
+%{
+	var ParseTree = require('./src/parseTree/parseTree.js');
+	var Eval = require('./src/evaluator.js');
+	var evaluator = new Eval();
+	var NumberNode = require('./src/parseTree/nodes/numberNode.js');
+	var OperatorNode = require('./src/parseTree/nodes/operatorNode.js');
+	var IdentifierNode = require('./src/parseTree/nodes/identifierNode.js');
+%}
+
 %lex
 %%
-\n										{	if(yylloc.first_line==1 && yylloc.first_column==0){
-												ParseTree = require('./src/parseTree/parseTree.js');
-												Eval = require('./src/evaluator.js');
-												evaluator = new Eval();
-												NumberNode = require('./src/parseTree/nodes/numberNode.js');
-												OperatorNode = require('./src/parseTree/nodes/operatorNode.js');
-												IdentifierNode = require('./src/parseTree/nodes/identifierNode.js');
-											}
-										}
 \s+         							{/* skip whitespace */}
 [0-9]+("."[0-9]+)?\b					return 'NUMBER'
 [a-zA-Z]+		                     	return 'IDENTIFIER'

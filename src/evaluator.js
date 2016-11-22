@@ -21,7 +21,7 @@ Evaluator.prototype.evaluate = function(){
 
 Evaluator.prototype.toJS = function(){
 	var jsCode = this.parseTrees.reduce(function(result,parseTree){
-		return result+"\n"+parseTree.toJS();
+		return result+parseTree.toJS()+"\n";
 	},"");
 	fs.writeFileSync("expression.js",jsCode);
 };
