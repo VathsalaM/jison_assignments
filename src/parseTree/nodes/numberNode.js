@@ -3,6 +3,7 @@ var number_to_words = require('number-to-words');
 var NumberNode = function(value){
     this.value = value;
     this.type = "number";
+    this.isParent;
     this.evaluate = function(){return this};
 };
 
@@ -15,6 +16,10 @@ NumberNode.prototype.represent = function(){
 };
 
 NumberNode.prototype.replaceIdentifiers = function(identifiers){
+};
+
+NumberNode.prototype.makeParent = function(){
+	this.isParent = true;
 };
 
 module.exports = NumberNode;

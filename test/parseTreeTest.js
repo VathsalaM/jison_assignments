@@ -62,4 +62,16 @@ describe("replaceIdentifiers",function(){
         var expected = "( 1 + 2 )";
         assert.equal(actual.toStr(),expected);
     })
+});
+
+describe("toJS",function(){
+    it("should return equivalent js code",function(){
+        var plus = new OperatorNode("+");
+        var arg1 = new NumberNode(1);
+        var arg2 = new IdentifierNode("x");
+        var actual = new ParseTree(plus,arg1,arg2);
+        actual.replaceIdentifiers({"x":2});
+        var expected = "console.log( 1 + 2 );";
+        assert.equal(actual.toJS(),expected);
+    })
 })

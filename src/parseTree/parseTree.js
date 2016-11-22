@@ -26,27 +26,13 @@ ParseTree.prototype.represent = function(){
 ParseTree.prototype.evaluate = function(){
 	var node = this.node;
 	var evaluatedChildrenList = this.children.map(function(child){ return child.evaluate();});
-	var start = evaluatedChildrenList[0];
-	// console.log('tree ',this.toStr());
-	for(var i=1;i<evaluatedChildrenList.length;i++){
-		// console.log("start: ",start.toStr());
-		// console.log("next: ",evaluatedChildrenList[i].toStr());
-		start = node.evaluate(start,evaluatedChildrenList[i]);
-	}
-	// return evaluatedChildrenList.reduce(function(a,b){return node.evaluate(a,b)},new NumberNode(0));
-	return start;
+	return evaluatedChildrenList.slice(1).reduce(function(a,b){return node.evaluate(a,b)},evaluatedChildrenList[0]);
 };
 
 ParseTree.prototype.replaceIdentifiers = function(identifiers){
 	var identSet = new Set(Object.keys(identifiers));
-	// console.log("identSet: ",identSet)
 	this.children.forEach(function(child){
-		// console.log("child: ",child.toStr());
-		// if(identSet.has(child.name)){
-			// console.log("child before: ",child.toStr())
 			child.replaceIdentifiers(identifiers);
-			// console.log("child after: ",child.toStr())
-		// }
 	})
 }
 
