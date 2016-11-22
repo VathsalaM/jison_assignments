@@ -48,7 +48,7 @@ expression_list
 
 expression	
 	: 	assignment_expression statement {$$ = evaluator.addTree($$);}
-	|	e	statement {$$ = evaluator.addTree($$);}
+	|	eval_expression	statement {$$ = evaluator.addTree($$);}
 	;
 
 assignment_expression 
@@ -60,19 +60,19 @@ value
 	|	NUMBER 		{$$=new NumberNode(Number(yytext))}
 	;
 
-e
-    : e '+' e
+eval_expression
+    : eval_expression '+' eval_expression
         {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-    | e '-' e
+    | eval_expression '-' eval_expression
         {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-    | e '*' e
+    | eval_expression '*' eval_expression
         {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-    | e '/' e
+    | eval_expression '/' eval_expression
         {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-    | e '^' e
+    | eval_expression '^' eval_expression
         {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-    | '(' e ')'
-        {$$ = $2;}
+    | '(' eval_expression ')'
+    	{$$ = $2;}
     | value
     ;
 

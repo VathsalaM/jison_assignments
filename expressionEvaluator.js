@@ -75,7 +75,7 @@ var expressionEvaluator = (function(){
 var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,9],$V2=[1,7],$V3=[5,10,12,19],$V4=[1,13],$V5=[1,15],$V6=[1,16],$V7=[1,17],$V8=[1,18],$V9=[1,19],$Va=[2,7],$Vb=[1,22],$Vc=[14,15,16,17,18,20,21],$Vd=[14,15,20,21],$Ve=[14,15,16,17,20,21];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"e":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"NUMBER":12,"value":13,"+":14,"-":15,"*":16,"/":17,"^":18,"(":19,")":20,";":21,"$accept":0,"$end":1},
+symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"eval_expression":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"NUMBER":12,"value":13,"+":14,"-":15,"*":16,"/":17,"^":18,"(":19,")":20,";":21,"$accept":0,"$end":1},
 terminals_: {2:"error",5:"EOF",10:"IDENTIFIER",11:"ASSIGNMENT_OPERATOR",12:"NUMBER",14:"+",15:"-",16:"*",17:"/",18:"^",19:"(",20:")",21:";"},
 productions_: [0,[3,2],[4,1],[4,2],[6,2],[6,2],[7,3],[13,1],[13,1],[9,3],[9,3],[9,3],[9,3],[9,3],[9,3],[9,1],[8,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
