@@ -31,8 +31,6 @@
 %left '+' '-'
 %left '*' '/'
 %left '^'
-%right '!'
-%right '%'
 
 %%
 
@@ -50,7 +48,7 @@ expression_list
 
 expression	
 	: 	assignment_expression statement {$$ = evaluator.addTree($$);}
-	|	eval_expression	statement {$$ = evaluator.addTree($$);}
+	|	e	statement {$$ = evaluator.addTree($$);}
 	;
 
 assignment_expression 
@@ -62,23 +60,21 @@ value
 	|	NUMBER 		{$$=new NumberNode(Number(yytext))}
 	;
 
-OPERATOR
-	:	'+' 
-	|	'-'	
-	|	'*'	
-	|	'/'	
-	|	'^'
-	;
-
-eval_expression
-	:	eval_expression '+' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-	|	eval_expression '-' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-	|	eval_expression '*' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-	|	eval_expression '/' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-	|	eval_expression '^' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-	|	eval_expression '=' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
-	|	value
-	;	
+e
+    : e '+' e
+        {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+    | e '-' e
+        {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+    | e '*' e
+        {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+    | e '/' e
+        {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+    | e '^' e
+        {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+    | '(' e ')'
+        {$$ = $2;}
+    | value
+    ;
 
 statement 
 	: ';'

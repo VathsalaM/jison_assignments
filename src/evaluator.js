@@ -4,12 +4,9 @@ var Evaluator = function(){
 
 Evaluator.prototype.evaluate = function(){
 	var identifiers = {};
-	// console.log(this.parseTrees.length);
 	var result = this.parseTrees.map(function(parseTree){
 		parseTree.replaceIdentifiers(identifiers);
-		// console.log("parseTree....",parseTree.toStr());
 		var result = parseTree.evaluate();
-		// console.log("==>",result.toStr());
 		if(result.type == 'identifier'){
 			identifiers[result.name] = result.value;
 		}
@@ -19,9 +16,7 @@ Evaluator.prototype.evaluate = function(){
 };
 
 Evaluator.prototype.addTree = function(parseTree){
-	// console.log("adding",this.parseTrees.length);
 	this.parseTrees.push(parseTree);
-	// console.log("afterAdding..",this.parseTrees.length);
 }
 
 module.exports = Evaluator;
