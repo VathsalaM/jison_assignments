@@ -72,12 +72,12 @@
   }
 */
 var expressionEvaluator = (function(){
-var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,6],$V1=[1,8],$V2=[5,10,12],$V3=[1,12],$V4=[15,16,17,18,19],$V5=[2,7],$V6=[10,12];
+var o=function(k,v,o,l){for(o=o||{},l=k.length;l--;o[k[l]]=v);return o},$V0=[1,4],$V1=[1,7],$V2=[1,9],$V3=[5,7,12,14],$V4=[1,14],$V5=[17,18,19,20,21,22],$V6=[2,8],$V7=[5,7,8,12,14],$V8=[12,14];
 var parser = {trace: function trace() { },
 yy: {},
-symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"assignment_expression":7,"statement":8,"eval_expression":9,"IDENTIFIER":10,"ASSIGNMENT_OPERATOR":11,"NUMBER":12,"value":13,"OPERATOR":14,"+":15,"-":16,"*":17,"/":18,";":19,"$accept":0,"$end":1},
-terminals_: {2:"error",5:"EOF",10:"IDENTIFIER",11:"ASSIGNMENT_OPERATOR",12:"NUMBER",15:"+",16:"-",17:"*",18:"/",19:";"},
-productions_: [0,[3,2],[4,1],[4,2],[6,2],[6,2],[7,3],[13,1],[13,1],[14,1],[14,1],[14,1],[14,1],[9,3],[9,1],[8,1]],
+symbols_: {"error":2,"EX":3,"expression_list":4,"EOF":5,"expression":6,"(":7,")":8,"assignment_expression":9,"statement":10,"eval_expression":11,"IDENTIFIER":12,"ASSIGNMENT_OPERATOR":13,"NUMBER":14,"value":15,"OPERATOR":16,"+":17,"-":18,"*":19,"/":20,"^":21,";":22,"$accept":0,"$end":1},
+terminals_: {2:"error",5:"EOF",7:"(",8:")",12:"IDENTIFIER",13:"ASSIGNMENT_OPERATOR",14:"NUMBER",17:"+",18:"-",19:"*",20:"/",21:"^",22:";"},
+productions_: [0,[3,2],[4,1],[4,2],[6,3],[6,2],[6,2],[9,3],[15,1],[15,1],[16,1],[16,1],[16,1],[16,1],[16,1],[11,3],[11,1],[10,1]],
 performAction: function anonymous(yytext, yyleng, yylineno, yy, yystate /* action[1] */, $$ /* vstack */, _$ /* lstack */) {
 /* this == yyval */
 
@@ -85,25 +85,29 @@ var $0 = $$.length - 1;
 switch (yystate) {
 case 1:
  
-								parser.parse();
+								this.$ = evaluator.evaluate();
+								this.$.forEach(function(result){ console.log(result.toStr()); });
 							
 break;
-case 4: case 5:
-parser.add(this.$);
-break;
-case 6: case 13:
-this.$ = parser.newTree($$[$0-2],$$[$0-1],$$[$0]);
+case 5: case 6:
+this.$ = evaluator.addTree(this.$);
 break;
 case 7:
-this.$=yytext
+this.$ = new ParseTree(new OperatorNode($$[$0-1]),new IdentifierNode($$[$0-2]),new NumberNode($$[$0]));
 break;
 case 8:
-this.$=Number(yytext)
+this.$=new IdentifierNode(yytext);
+break;
+case 9:
+this.$=new NumberNode(Number(yytext))
+break;
+case 15:
+this.$ = new ParseTree(new OperatorNode($$[$0-1]),$$[$0-2],$$[$0]);
 break;
 }
 },
-table: [{3:1,4:2,6:3,7:4,9:5,10:$V0,12:$V1,13:7},{1:[3]},{5:[1,9],6:10,7:4,9:5,10:$V0,12:$V1,13:7},o($V2,[2,2]),{8:11,19:$V3},{8:13,19:$V3},o($V4,$V5,{11:[1,14]}),{14:15,15:[1,16],16:[1,17],17:[1,18],18:[1,19],19:[2,14]},o($V4,[2,8]),{1:[2,1]},o($V2,[2,3]),o($V2,[2,4]),o($V2,[2,15]),o($V2,[2,5]),{12:[1,20]},{9:21,10:[1,22],12:$V1,13:7},o($V6,[2,9]),o($V6,[2,10]),o($V6,[2,11]),o($V6,[2,12]),{19:[2,6]},{19:[2,13]},o($V4,$V5)],
-defaultActions: {9:[2,1],20:[2,6],21:[2,13]},
+table: [{3:1,4:2,6:3,7:$V0,9:5,11:6,12:$V1,14:$V2,15:8},{1:[3]},{5:[1,10],6:11,7:$V0,9:5,11:6,12:$V1,14:$V2,15:8},o($V3,[2,2]),{6:12,7:$V0,9:5,11:6,12:$V1,14:$V2,15:8},{10:13,22:$V4},{10:15,22:$V4},o($V5,$V6,{13:[1,16]}),{16:17,17:[1,18],18:[1,19],19:[1,20],20:[1,21],21:[1,22],22:[2,16]},o($V5,[2,9]),{1:[2,1]},o($V3,[2,3]),{8:[1,23]},o($V7,[2,5]),o($V7,[2,17]),o($V7,[2,6]),{14:[1,24]},{11:25,12:[1,26],14:$V2,15:8},o($V8,[2,10]),o($V8,[2,11]),o($V8,[2,12]),o($V8,[2,13]),o($V8,[2,14]),o($V7,[2,4]),{22:[2,7]},{22:[2,15]},o($V5,$V6)],
+defaultActions: {10:[2,1],24:[2,7],25:[2,15]},
 parseError: function parseError(str, hash) {
     if (hash.recoverable) {
         this.trace(str);
@@ -582,36 +586,48 @@ options: {},
 performAction: function anonymous(yy,yy_,$avoiding_name_collisions,YY_START) {
 var YYSTATE=YY_START;
 switch($avoiding_name_collisions) {
-case 0:	if(yy_.yylloc.first_line==1 && yy_.yylloc.first_column==0)
-												parser = require('./utils.js');
+case 0:	if(yy_.yylloc.first_line==1 && yy_.yylloc.first_column==0){
+												ParseTree = require('./src/parseTree/parseTree.js');
+												Eval = require('./src/evaluator.js');
+												evaluator = new Eval();
+												NumberNode = require('./src/parseTree/nodes/numberNode.js');
+												OperatorNode = require('./src/parseTree/nodes/operatorNode.js');
+												IdentifierNode = require('./src/parseTree/nodes/identifierNode.js');
+											}
 										
 break;
 case 1:/* skip whitespace */
 break;
-case 2:return 12
+case 2:return 14
 break;
-case 3:return 10
+case 3:return 12
 break;
-case 4:return 16;
+case 4:return 18;
 break;
-case 5:return 18;
+case 5:return 20;
 break;
-case 6:return 15;
+case 6:return 17;
 break;
-case 7:return 17;
+case 7:return 19;
 break;
-case 8:return 11;
+case 8:return 21;
 break;
-case 9:return 19;
+case 9:return 7;
 break;
-case 10:return 5;
+case 10:return 8;
 break;
-case 11:return 'INVALID';
+case 11:return 13;
+break;
+case 12:return 22;
+break;
+case 13:return 5;
+break;
+case 14:return 'INVALID';
 break;
 }
 },
-rules: [/^(?:\n)/,/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?\b)/,/^(?:[a-zA-Z]+)/,/^(?:-)/,/^(?:\/)/,/^(?:\+)/,/^(?:\*)/,/^(?:=)/,/^(?:;)/,/^(?:$)/,/^(?:.)/],
-conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11],"inclusive":true}}
+rules: [/^(?:\n)/,/^(?:\s+)/,/^(?:[0-9]+(\.[0-9]+)?\b)/,/^(?:[a-zA-Z]+)/,/^(?:-)/,/^(?:\/)/,/^(?:\+)/,/^(?:\*)/,/^(?:\^)/,/^(?:\()/,/^(?:\))/,/^(?:=)/,/^(?:;)/,/^(?:$)/,/^(?:.)/],
+conditions: {"INITIAL":{"rules":[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14],"inclusive":true}}
 });
 return lexer;
 })();

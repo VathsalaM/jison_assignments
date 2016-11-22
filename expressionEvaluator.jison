@@ -2,8 +2,14 @@
 
 %lex
 %%
-\n										{	if(yylloc.first_line==1 && yylloc.first_column==0)
-												parser = require('./utils.js');
+\n										{	if(yylloc.first_line==1 && yylloc.first_column==0){
+												ParseTree = require('./src/parseTree/parseTree.js');
+												Eval = require('./src/evaluator.js');
+												evaluator = new Eval();
+												NumberNode = require('./src/parseTree/nodes/numberNode.js');
+												OperatorNode = require('./src/parseTree/nodes/operatorNode.js');
+												IdentifierNode = require('./src/parseTree/nodes/identifierNode.js');
+											}
 										}
 \s+         							{/* skip whitespace */}
 [0-9]+("."[0-9]+)?\b					return 'NUMBER'
@@ -12,6 +18,9 @@
 "/"           							return '/';
 "+"										return '+';
 "*"           							return '*';
+"^"           							return '^';
+"("           							return '(';
+")"           							return ')';
 "="           							return 'ASSIGNMENT_OPERATOR';
 ";"           							return ';';
 <<EOF>>        							return 'EOF';
@@ -19,42 +28,55 @@
 
 /lex
 
+%left '+' '-'
+%left '*' '/'
+%left '^'
+%right '!'
+%right '%'
+
 %%
 
 EX 
 	:	expression_list EOF { 
-								parser.parse();
+								$$ = evaluator.evaluate();
+								$$.forEach(function(result){ console.log(result.toStr()); });
 							}
 	;
 
 expression_list
-	:	expression
+	:	expression 
 	|	expression_list	expression 
 	;
 
 expression	
-	:	assignment_expression statement {parser.add($$);}
-	|	eval_expression	statement {parser.add($$);}
+	: 	assignment_expression statement {$$ = evaluator.addTree($$);}
+	|	eval_expression	statement {$$ = evaluator.addTree($$);}
 	;
 
 assignment_expression 
-	:	IDENTIFIER ASSIGNMENT_OPERATOR NUMBER {$$ = parser.newTree($1,$2,$3);}
+	:	IDENTIFIER ASSIGNMENT_OPERATOR NUMBER {$$ = new ParseTree(new OperatorNode($2),new IdentifierNode($1),new NumberNode($3));}
 	;
 
 value 
-	:	IDENTIFIER	{$$=yytext}
-	|	NUMBER 		{$$=Number(yytext)}
+	:	IDENTIFIER	{$$=new IdentifierNode(yytext);}
+	|	NUMBER 		{$$=new NumberNode(Number(yytext))}
 	;
 
 OPERATOR
-	:	'+'
-	|	'-'
-	|	'*'
-	|	'/'
+	:	'+' 
+	|	'-'	
+	|	'*'	
+	|	'/'	
+	|	'^'
 	;
 
 eval_expression
-	:	value OPERATOR eval_expression {$$ = parser.newTree($1,$2,$3);}
+	:	eval_expression '+' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+	|	eval_expression '-' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+	|	eval_expression '*' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+	|	eval_expression '/' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+	|	eval_expression '^' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
+	|	eval_expression '=' eval_expression {$$ = new ParseTree(new OperatorNode($2),$1,$3);}
 	|	value
 	;	
 
