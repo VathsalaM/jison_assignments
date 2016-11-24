@@ -3,16 +3,19 @@ var NumberNode = require('./nodes/numberNode.js');
 var ParseTree = function(node,children){
 	this.node = node;
 	var argKeys = Object.keys(arguments).slice(1);
-	var args = arguments;
-	this.children = argKeys.map(function(key){ return args[key]; });
+	this.children = argKeys.map(function(key){ return arguments[key]; });
+};
+
+var addBraces = function(value) {
+	return value.toStr("(",")",space);
 };
 
 ParseTree.prototype.toStr = function(openBrace,cloceBrace,space){
 	var node = this.node;
     var result = this.children.slice(1).reduce(function(prevResult,child){
-        return prevResult + space + node.toStr("(",")",space)+ space+child.toStr("(",")",space);
-    },openBrace+this.children[0].toStr("(",")",space));
-    return result+cloceBrace;
+        return addBraces(prevResult) + space + addBraces(node) + space + addBraces(child);
+    }, openBrace);
+    return result + cloceBrace;
 };
 
 ParseTree.prototype.represent = function(){

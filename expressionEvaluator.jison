@@ -35,9 +35,10 @@
 %%
 
 EX 
-	:	expression_list EOF { 
-								evaluator.toJS();
-							}
+	: expression_list EOF 
+		{
+			evaluator.toJS();
+		}
 	;
 
 expression_list
@@ -51,7 +52,8 @@ expression
 	;
 
 assignment_expression 
-	:	IDENTIFIER ASSIGNMENT_OPERATOR eval_expression {$$ = new ParseTree(new OperatorNode($2),new IdentifierNode($1),$3);}
+	:	IDENTIFIER ASSIGNMENT_OPERATOR eval_expression 
+			{$$ = new ParseTree(new OperatorNode($2),new IdentifierNode($1),$3);}
 	;
 
 value 
